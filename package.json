@@ -1,0 +1,13 @@
+{
+  "name": "img-upload-to-pixi-sample",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "orange634",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^1.10.3"
+  },
+  "dependencies": {
+    "pixi.js": "^4.8.2"
+  }
+}
