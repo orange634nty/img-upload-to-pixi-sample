@@ -14,7 +14,7 @@ pixiview.appendChild(app.view);
 
 // ----- 以下の部分が本題 -----
 
-// ファイルアップロードイベント登録
+// ファイルアッップロード時のリスナーを登録
 document.getElementById('uploadFile').addEventListener('change', evt => {
     // ファイルを読み取る
     const files = evt.target.files;
@@ -25,9 +25,13 @@ document.getElementById('uploadFile').addEventListener('change', evt => {
     // ImageとFileRaederを使ってアップロードされた画像を読み込む
     const image = new Image();
     const fr = new FileReader();
-    // ファイルをロードした後のコールバックを登録
+    // ファイルをdata urlとして読み込みます
+    fr.readAsDataURL(files[0]);
+    // ファイルをロードした後のイベントリスナを登録
     fr.onload = evt => {
-        // 画像をロードした後のコールバックを登録
+        // base64に変換されたurlをimageのsrcに設定
+        image.src = evt.target.result;
+        // 画像をロードした後のイベントリスナを登録
         image.onload = () => {
             // アップロードした画像をtextureとして読み込みspriteに貼り付ける
             const loadTexture = new PIXI.Texture(new PIXI.BaseTexture(image));
@@ -39,11 +43,5 @@ document.getElementById('uploadFile').addEventListener('change', evt => {
             // 画面にスプライトを追加
             app.stage.addChild(loadSprite);
         };
-        // base64に変換されたurlをimageのsrcに設定
-        // 読み込み後先ほど登録したコールバックが実行されます
-        image.src = evt.target.result;
     }
-    // ファイルをdata urlとして読み込みます
-    // 読み込み後先ほど設定したコールバックが実行されます
-    fr.readAsDataURL(files[0]);
 });
