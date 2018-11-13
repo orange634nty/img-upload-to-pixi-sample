@@ -4,11 +4,15 @@ const SC_WIDTH = 500;
 const SC_HEIGHT = 500;
 const SC_BG_COLOR = 0x0000000;
 
-// pixiアプリケーション作成
 const app = new PIXI.Application(SC_WIDTH, SC_HEIGHT, {
     backgroundColor : SC_BG_COLOR,
     preserveDrawingBuffer: true
 });
+const pixiview = document.getElementById('pixiview');
+pixiview.textContent = null;
+pixiview.appendChild(app.view);
+
+// ----- 以下の部分が本題 -----
 
 // ファイルアップロードイベント登録
 document.getElementById('uploadFile').addEventListener('change', evt => {
@@ -18,7 +22,7 @@ document.getElementById('uploadFile').addEventListener('change', evt => {
         console.log('error! file are not uploaded.');
         return;
     }
-    // ImageとFileRaederを使って画像を読み込む
+    // ImageとFileRaederを使ってアップロードされた画像を読み込む
     const image = new Image();
     const fr = new FileReader();
     // ファイルをロードした後のコールバックを登録
@@ -35,14 +39,11 @@ document.getElementById('uploadFile').addEventListener('change', evt => {
             // 画面にスプライトを追加
             app.stage.addChild(loadSprite);
         };
-        // base64に変換したものをimageのsrcとして登録
+        // base64に変換されたurlをimageのsrcに設定
+        // 読み込み後先ほど登録したコールバックが実行されます
         image.src = evt.target.result;
     }
+    // ファイルをdata urlとして読み込みます
+    // 読み込み後先ほど設定したコールバックが実行されます
     fr.readAsDataURL(files[0]);
 });
-
-const pixiview = document.getElementById('pixiview');
-// 開発環境用対応に子要素を全て削除
-pixiview.textContent = null;
-// pixiviewにcanvasのdomを追加
-pixiview.appendChild(app.view);
