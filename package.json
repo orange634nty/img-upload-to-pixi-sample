@@ -4,6 +4,10 @@
   "main": "src/index.js",
   "author": "orange634",
   "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html -d docs/"
+  },
   "devDependencies": {
     "parcel": "^1.10.3"
   },
