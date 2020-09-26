@@ -9,7 +9,7 @@
     "build": "parcel build src/index.html -d docs/"
   },
   "devDependencies": {
-    "parcel": "^1.10.3"
+    "parcel": "^1.12.4"
   },
   "dependencies": {
     "pixi.js": "^4.8.2"
